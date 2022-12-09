@@ -4,7 +4,6 @@ import React from 'react';
 function Cards(props){
     return(
     <>
-    {console.log(".............."+props.sname)}
       <div className="cards">
         <div className="card">
           <img src={props.imgsrc} alt="myPic" className="card_img" />

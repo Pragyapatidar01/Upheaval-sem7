@@ -67,6 +67,7 @@ app.get('/ideas',(req,res) => {
         })
 })
 
+
 app.get('/api',(req,res)=>{
     const customers = [
         {id:1,firstName:'John'},

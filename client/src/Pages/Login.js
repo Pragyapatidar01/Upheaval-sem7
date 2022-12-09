@@ -17,6 +17,7 @@ const[user,setUser] = useState({});
 
 // send loginEmail from here to server.js
 
+
 onAuthStateChanged(auth,(currentUser)=>{
     setUser(currentUser);
 })
