@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 import LinkSection from "../components/LinkSection";
 import {Link, Routes, Route, useNavigate} from 'react-router-dom';
@@ -8,6 +8,13 @@ import {auth} from "../firebase-config";
 
 function NewIdea() {
 
+  let userEmail;
+
+  useEffect(() => {
+    userEmail = auth.currentUser.email;
+    
+  }, [userEmail]);
+
   const navigate = useNavigate();
 
   const [flag, setFlag] = useState(0);
@@ -15,7 +22,7 @@ function NewIdea() {
     title:"", desc:"", techStack:"", domain:"", demoLink:"", videoLink:"", repoLink:""
   });
 
-  const userEmail = auth.currentUser.email;
+  console.log(auth)
   let name,value;
   const handleInputs = (e) => {
     name = e.target.name;

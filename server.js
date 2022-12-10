@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const Idea = require('./models/ideaSchema');
 const PSsolution = require('./models/PSsolutionSchema');
+let userEmailId;
 
 const app = express();
 
@@ -25,6 +26,15 @@ mongoose.connect(DB, {
     console.log('connected to MongoDB');
 }).catch((err)=> console.log(err));
 
+
+app.post('/login',async (req,res) => {
+    const {userEmail} = req.body;
+    console.log("logiiiiiiiiiiiiiin");
+    console.log(userEmail);
+    userEmailId = userEmail;
+    res.send(req.body);
+
+})
 app.post('/newIdea', async(req,res) => {
     const { userEmail, title, desc, techStack, domain, demoLink, videoLink, repoLink } = req.body;
     console.log("data on backend");
@@ -44,6 +54,7 @@ app.post('/PSsolution', async(req,res) => {
     console.log("data on backend");
     console.log(req.body);
 
+
     const psSolution = new PSsolution({ userEmail, PSid, solDesc, techStack, demoLink, videoLink, repoLink });
 
     psSolution.save().then(() => {
@@ -55,13 +66,22 @@ app.post('/PSsolution', async(req,res) => {
 app.get('/ideas',(req,res) => {
     let ideasArray=[];
 
-    //  Idea.find({userEmail:}).then((ideas)=>{ 
-    //  get current userEmail from login and register
-
-    Idea.find().then((ideas)=>{
+    Idea.find({userEmail:userEmailId}).then((ideas)=>{
         ideas.forEach(idea => ideasArray.push(idea));
         console.log(ideasArray);
-            res.json(ideasArray);
+        return res.json(ideasArray);
+        }).catch((err)=>{
+            console.log(err);
+        })
+})
+
+app.get('/detailIdeas',(req,res) => {
+    let ideasArray=[];
+
+    Idea.find({userEmail:userEmailId}).then((ideas)=>{
+        ideas.forEach(idea => ideasArray.push(idea));
+        console.log(ideasArray); 
+        res.json(ideasArray);
         }).catch((err)=>{
             console.log(err);
         })

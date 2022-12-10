@@ -7,13 +7,14 @@ import Sidebar from "../components/Sidebar";
 
 function Ideas() {
   const history = useNavigate();
+  const [data,setData] = useState([]);
 
   useEffect(() => {
     getIdeas();
     
   }, []);
 
-  const [data,setData] = useState([]);
+  
 
   const getIdeas = async () => {
     try{
@@ -54,6 +55,7 @@ function Ideas() {
           title={d.title}
           sname={d.domain}
           link={d.repoLink}
+          index={i}
           key={i} />
         )
       })}

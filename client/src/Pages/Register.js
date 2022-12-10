@@ -86,27 +86,7 @@ const logout = async () => {
                                 </div>
                                 </div>
                           </main>
-    // <div>
-    // <div>
-    //     <h3> Register User</h3>
-    //     <input placeholder="Email" 
-    //     onChange={(event) => {
-    //         setRegisterEmail(event.target.value);
-    //     }}
-    //     />
-    //     <input placeholder="Password" 
-    //     onChange={(event) => {
-    //         setRegisterPass(event.target.value);
-    //     }}
-    //     />
-    //     <button onClick={register}>Create User</button>
-    // </div>
-    //     <p className="mt-2">
-    //           Already have account? <Link to="/login">Login</Link>
-    //     </p>
-    // {user?.email}
-    // <button onClick={logout}>Sign Out</button>
-    // </div>
+    
   )
 }
 

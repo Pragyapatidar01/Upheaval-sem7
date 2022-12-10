@@ -1,10 +1,57 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React,{useState,useEffect} from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Sidebar from "../components/Sidebar";
 
 const DetailIdeas = () => {
+
+  const [data,setData] = useState([]);
+  const [domain,setDomain] = useState();
+  // const [data,setData] = useState([]);
+  // const [data,setData] = useState([]);
+  // let domain;
+  
   const history = useNavigate();
+  const location = useLocation();
+  console.log("woohoo")
+  const {index} = location.state;
+    console.log(index);
+  
+  // const { index } = location.state;
+
+  useEffect(() => {
+    getIdeas();
+    
+    
+  }, []);
+
+  
+
+  const getIdeas = async () => {
+    try{
+      const res = await fetch('/detailIdeas', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+  
+      const resData = await res.json();
+      // console.log(resData[index].domain);
+      setDomain('mydomain');
+      setData(resData);
+      
+      if(!data){
+        console.log("Failed to get");
+      }else{
+        console.log("Data got on react");
+        // console.log(data[index].domain)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
     <Sidebar />
@@ -28,7 +75,6 @@ const DetailIdeas = () => {
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               <img src={assets.lock} alt="lock" widht="20px" height="20px" />
-              Idea only visible to company
             </div>
             <div className="d-flex align-items-center">
               <img src={assets.verified} alt="verified" /> Verified Organisation
@@ -57,7 +103,7 @@ const DetailIdeas = () => {
           className="d-flex align-items-center"
           style={{ paddingLeft: "3.6rem" }}
         >
-          <h5 className="pe-5">Overview</h5>
+          <h5 className="pe-5">Idea Description</h5>
           <hr style={{ width: "82%", height: "2px" }} />
         </div>
         <div
@@ -68,17 +114,13 @@ const DetailIdeas = () => {
             textAlign: "left",
           }}
         >
-          Lorem IpsumLorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum Lorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum Lorem Ipsum Lorem
-          Ipsum Lorem Ipsum Lorem Ipsum vLorem IpsumLorem IpsumLorem Ipsum
-          <p>
-            Lorem IpsumLorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum Lorem
-            IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum Lorem Ipsum Lorem
-          </p>
-          <p>
-            Lorem IpsumLorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum Lorem
-            IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum Lorem Ipsum Lorem
-          </p>
+          {/* {myarray.title} */}
+          {/* {alert(data[index])} */}
+          {domain}
+          {/* {data[index]}
+          {data[index]}
+          {data[index]} */}
+          
         </div>
       </div>
       <div>

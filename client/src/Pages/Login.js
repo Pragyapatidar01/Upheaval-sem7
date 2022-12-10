@@ -15,8 +15,22 @@ const [loginPass, setLoginPass] = useState("");
 
 const[user,setUser] = useState({});
 
-// send loginEmail from here to server.js
 
+// send loginEmail from here to server.js
+const postUserEmail = async (userEmail) => {
+
+    const res = await fetch('/login', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body : JSON.stringify({
+          userEmail
+        })
+      });
+      const data = await res.json();
+
+  };
 
 onAuthStateChanged(auth,(currentUser)=>{
     setUser(currentUser);
@@ -24,8 +38,11 @@ onAuthStateChanged(auth,(currentUser)=>{
 
 const login = async () => {
     try{
+
         const user = await signInWithEmailAndPassword(auth,loginEmail,loginPass);
         console.log(user);
+        
+        postUserEmail(user.user.email);
         // console.log(location.state.status);
         // if(location.state.status == 'Student')
         navigate('/studentHome');
